@@ -1,0 +1,29 @@
+{
+    "name": "zlt/laravel-macros",
+    "description": "Some useful laravel macros",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zlt\\LaravelMacros\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zaw Lin Tun",
+            "email": "zawlintun@utycc.edu.mm"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zlt\\LaravelMacros\\LaravelMacrosServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+}
