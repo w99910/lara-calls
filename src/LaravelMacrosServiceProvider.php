@@ -2,53 +2,28 @@
 
 namespace Zlt\LaravelMacros;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Zlt\LaravelMacros\Traits\OnlyValues;
+use Zlt\LaravelMacros\Traits\PluckMultiple;
+use Zlt\LaravelMacros\Traits\UpdateOrCreateWhen;
 
 class LaravelMacrosServiceProvider extends ServiceProvider
 {
+    use OnlyValues, PluckMultiple, UpdateOrCreateWhen;
+
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__ . '/../config/laravelmacros.php' => config_path('laravelmacros.php'),
+        ]);
     }
 
     public function register()
     {
-
-//        Builder::macro('updateOrCreateWhen',function(array $checkAttributes,array $updateAttributes,\Closure $closure){
-//            $checkObject = $this->where($checkAttributes)->first();
-//            if($checkObject){
-//                $updateObject = $checkObject->replicate()->fill($updateAttributes);
-//                if($closure($checkObject,$updateObject)){
-//                    return $checkObject->update($updateAttributes);
-//                }else{
-//                    return false;
-//                }
-//            }else{
-//                $this->create(array_merge($checkAttributes,$updateAttributes));
-//                return true;
-//            }
-//        });
-
-        Collection::macro('onlyValues', function () {
-            return $this->map(function ($item, $key) {
-                $keys = array_keys($item);
-                foreach ($keys as $key) {
-                    $a[] = $item[$key];
-                }
-                return $a;
-            });
-        });
-
-        Collection::macro('pluckMultiple', function (array $keys) {
-            return $this->map(function ($item) use ($keys) {
-                foreach ($keys as $key) {
-                    $a[$key] = preg_match('/^([a-zA-Z]+)\.([a-zA-Z]+)$/', $key) ? $item[explode('.', $key)[0]][explode('.', $key)[1]] : $item[$key];
-                }
-                return $a;
-            });
-        });
-
-
+        $default = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen'];
+        $macros = config('laravelmacros.macros', $default);
+        foreach ($macros as $macro) {
+            if (method_exists($this, $macro)) $this->$macro();
+        }
     }
 }
