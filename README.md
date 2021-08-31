@@ -12,7 +12,7 @@
 
 Install via composer 
 ```bash
-composer require zlt/laravelmacros
+composer require zlt/laravel-macros
 ``` 
 Publish config file.
 ```bash
