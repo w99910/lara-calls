@@ -34,7 +34,7 @@ return [
 
     /*
      * You may customize which macros you want to use.
-     * Only macros provided below can be registered.
+     * Only macros provided below will be registered.
      * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc'.
      */
     'macros' => ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc'],
@@ -183,19 +183,27 @@ return [
   */
    
   $collection = collect([
-       [
-           'a' => [['b'=>4],['b'=>5],['b'=>1],['b'=>3]]
-       ],
-        [
-            'a' => [['b'=>5],['b'=>2],['b'=>6],['b'=>1]]
-        ]
-    ]);
-    $collection->sortInValue('a'); 
+            [
+                'a' => [
+                    ['b' => 4],
+                    ['b' => 5],
+                    ['b' => 1],
+                    ['b' => 3]]
+            ],
+            [
+                'a' => [
+                    ['b' => 5],
+                    ['b' => 2],
+                    ['b' => 6],
+                    ['b' => 1]]
+            ]
+        ]);
+    $collection->sortInValue('a','b'); 
   /*
-  Illuminate\Support\Collection {#4306
+  Illuminate\Support\Collection {#4348
      all: [
        [
-         "a" => Illuminate\Support\Collection {#4325
+         "a" => Illuminate\Support\Collection {#4347
            all: [
              2 => [
                "b" => 1,
@@ -213,7 +221,7 @@ return [
          },
        ],
        [
-         "a" => Illuminate\Support\Collection {#4296
+         "a" => Illuminate\Support\Collection {#4346
            all: [
              3 => [
                "b" => 1,
