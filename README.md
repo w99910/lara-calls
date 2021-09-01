@@ -220,7 +220,8 @@ php artisan vendor:publish --provider="Zlt\LaravelMacros\LaravelMacrosServicePro
    This method is similar to [`sortInValue`](#sortinvalue) but will sort in descending order.
 - #### GroupAndSortBy
    This method is similar to `groupBy` but you can sort the returned collection.
-   You can also provide a callback to modify the returned collection as you like.
+   You can also provide a callback to modify the returned collection as you like. 
+   In order to sort the returned collection in descending order, you may use [`groupAndSortByDesc`](#groupandsortbydesc) method.
   ```php
   $collection = collect([
             [
