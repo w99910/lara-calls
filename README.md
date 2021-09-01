@@ -1,5 +1,5 @@
-## Some useful macros for Laravel
-
+# Some useful macros for Laravel
+## Table Of Contents
 - [Installation](#installation)
 - [Available Methods](#available-methods)
     - [updateOrCreateWhen](#updateorcreatewhen)
@@ -23,6 +23,24 @@ Publish config file.
 ```bash
 php artisan vendor:publish --provider="Zlt\LaravelMacros\LaravelMacrosServiceProvider"
 ```
+
+Config file will contains 
+```php
+return [
+    /*
+     * Define your eloquent builder class so that you can use custom Eloquent macros provided by package.
+     */
+    'builder' => \Illuminate\Database\Eloquent\Builder::class,
+
+    /*
+     * You may customize which macros you want to use.
+     * Only macros provided below can be registered.
+     * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc'.
+     */
+    'macros' => ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc'],
+];
+```
+
 
 > Note: If you've already published config, update your 'macros' in 'laravel-macros' config to use the latest methods.
 
