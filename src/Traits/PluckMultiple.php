@@ -30,14 +30,5 @@ trait PluckMultiple
                 return $a ?? $item;
             });
         });
-    $collection = collect([
-       [
-           'a' => [['b'=>4],['b'=>5],['b'=>1],['b'=>3]]
-       ],
-        [
-            'a' => [['b'=>5],['b'=>2],['b'=>6],['b'=>1]]
-        ]
-    ]);
-    $collection->sortInValue('a');
     }
 }

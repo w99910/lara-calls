@@ -5,11 +5,12 @@ namespace Zlt\LaravelMacros;
 use Illuminate\Support\ServiceProvider;
 use Zlt\LaravelMacros\Traits\OnlyValues;
 use Zlt\LaravelMacros\Traits\PluckMultiple;
+use Zlt\LaravelMacros\Traits\SortInValue;
 use Zlt\LaravelMacros\Traits\UpdateOrCreateWhen;
 
 class LaravelMacrosServiceProvider extends ServiceProvider
 {
-    use OnlyValues, PluckMultiple, UpdateOrCreateWhen;
+    use OnlyValues, PluckMultiple, UpdateOrCreateWhen, SortInValue;
 
     public function boot()
     {
@@ -20,7 +21,7 @@ class LaravelMacrosServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $default = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen'];
+        $default = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen','sortInValue','sortInValueDesc'];
         $macros = config('laravelmacros.macros', $default);
         foreach ($macros as $macro) {
             if (method_exists($this, $macro)) $this->$macro();

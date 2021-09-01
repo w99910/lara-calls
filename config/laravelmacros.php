@@ -2,5 +2,5 @@
 
 return [
      'builder' => \Illuminate\Database\Eloquent\Builder::class,
-     'macros' => ['onlyValues','pluckMultiple','updateOrCreateWhen'],
+     'macros' => ['onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc'],
 ];

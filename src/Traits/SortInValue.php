@@ -18,7 +18,8 @@ trait SortInValue
                 return $item;
             });
         });
-
+    }
+    function sortInValueDesc(){
         Collection::macro('sortInValueDesc', function ($attributeName , $sortKey = null) {
             return $this->map(function ($item, $key) use ($attributeName, $sortKey){
                 $values = collect($item[$attributeName]);
@@ -30,6 +31,5 @@ trait SortInValue
                 return $item;
             });
         });
-
     }
 }
