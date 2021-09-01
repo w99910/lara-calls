@@ -3,7 +3,7 @@
     "description": "Some useful laravel macros",
     "type": "library",
     "license": "MIT",
-    "keywords": ["laravel", "macro", "macros"],
+    "keywords": ["laravel", "macro", "macros", "laravel-macros"],
     "require": {
         "php": "^7.3|^8.0",
         "laravel/framework": "^v5.5.0|^v6.0.0|^7.0.0|^v8.0.0"

@@ -7,9 +7,9 @@
     - [pluckMultiple](#pluckmultiple)
     - [sortInValue](#sortinvalue)
     - [sortInValueDesc](#sortinvaluedesc)
-
-> Note: This package is still under development.
-
+    - [groupAndSortBy](#groupandsortby)
+    - [groupAndSortByDesc](#groupandsortbydesc)
+    
 ### Installation
 
 Install via composer
@@ -23,6 +23,8 @@ Publish config file.
 ```bash
 php artisan vendor:publish --provider="Zlt\LaravelMacros\LaravelMacrosServiceProvider"
 ```
+
+> Note: If you've already published config, update your 'macros' in 'laravel-macros' config to use the latest methods.
 
 ### Available Methods
 
@@ -216,6 +218,91 @@ php artisan vendor:publish --provider="Zlt\LaravelMacros\LaravelMacrosServicePro
     ```
 - #### SortInValueDesc
    This method is similar to [`sortInValue`](#sortinvalue) but will sort in descending order.
+- #### GroupAndSortBy
+   This method is similar to `groupBy` but you can sort the returned collection.
+   You can also provide a callback to modify the returned collection as you like.
+  ```php
+  $collection = collect([
+            [
+                'name' => 'James',
+                'age' => 20,
+            ],
+            [
+                'name' => 'Watson',
+                'age' => 24,
+            ],
+            [
+                'name' => 'James',
+                'age' => 15,
+            ]
+        ]);
+
+  dd($collection->groupAndSortBy('name','age'));
+  /*
+   Illuminate\Support\Collection^ {#4321
+             #items: array:2 [
+         "James" => Illuminate\Support\Collection^ {#4322
+           #items: array:2 [
+             1 => array:2 [
+               "name" => "James"
+               "age" => 15
+             ]
+             0 => array:2 [
+               "name" => "James"
+               "age" => 20
+             ]
+           ]
+         }
+         "Watson" => Illuminate\Support\Collection^ {#4325
+           #items: array:1 [
+             0 => array:2 [
+               "name" => "Watson"
+               "age" => 24
+             ]
+           ]
+         }
+       ]
+    }
+    */
+  
+   $collection = collect([
+            [
+                'name' => 'James',
+                'age' => 20,
+            ],
+            [
+                'name' => 'Watson',
+                'age' => 24,
+            ],
+            [
+                'name' => 'James',
+                'age' => 15,
+            ]
+        ]);
+
+   dd($collection->groupAndSortBy('name','age',function($collection){
+       return $collection->where('age','>=',24);
+   }));
+        /*
+   Illuminate\Support\Collection^ {#4313
+       #items: array:2 [
+         "James" => Illuminate\Support\Collection^ {#4311
+           #items: []
+         }
+         "Watson" => Illuminate\Support\Collection^ {#4309
+           #items: array:1 [
+             0 => array:2 [
+               "name" => "Watson"
+               "age" => 24
+             ]
+           ]
+         }
+       ]
+     }
+    */
+  ```
+- #### GroupAndSortByDesc
+  The `groupAndSortByDesc` method is similar to [`groupAndSortBy`](#groupandsortby) but the returned collection is sorted in descending order.
 
   
 
