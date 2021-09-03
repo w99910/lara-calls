@@ -2,13 +2,17 @@
 ## Table Of Contents
 - [Installation](#installation)
 - [Available Methods](#available-methods)
-    - [updateOrCreateWhen](#updateorcreatewhen)
-    - [onlyValues](#onlyvalues)
-    - [pluckMultiple](#pluckmultiple)
-    - [sortInValue](#sortinvalue)
-    - [sortInValueDesc](#sortinvaluedesc)
-    - [groupAndSortBy](#groupandsortby)
-    - [groupAndSortByDesc](#groupandsortbydesc)
+    - [Collection-Macros](#collection-macros)
+      - [onlyValues](#onlyvalues)
+      - [pluckMultiple](#pluckmultiple)
+      - [sortInValue](#sortinvalue)
+      - [sortInValueDesc](#sortinvaluedesc)
+      - [groupAndSortBy](#groupandsortby)
+      - [groupAndSortByDesc](#groupandsortbydesc)
+    - [Build-Macros](#builder-macros)
+      - [updateOrCreateWhen](#updateorcreatewhen)
+    - [Global Helpers](#global-helpers)
+      - [Calculate Execution Time](#calculate-execution-time)
     
 ### Installation
 
@@ -33,11 +37,11 @@ return [
     'builder' => \Illuminate\Database\Eloquent\Builder::class,
 
     /*
-     * You may customize which macros you want to use.
-     * Only macros provided below will be registered.
-     * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc'.
+     * You may customize which macros you don't want to use.
+     * Only macros provided below will not be registered.
+     * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc','calc_exec_time'.
      */
-    'macros' => ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc'],
+    'exclude_macros' => [],
 ];
 ```
 
@@ -331,7 +335,19 @@ return [
 - #### GroupAndSortByDesc
   The `groupAndSortByDesc` method is similar to [`groupAndSortBy`](#groupandsortby) but the returned collection is sorted in descending order.
 
-  
+### Global Helpers
+
+- #### Calculate Execution Time
+    Calculate your function execution time in seconds. 
+    ```php
+   $time = calc_exec_time(function(){
+   sleep(5);
+  return 'test';
+  });
+   dd($time); //"5.0008"
+    ```
+
+
 
 
 

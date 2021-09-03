@@ -22,10 +22,13 @@ class LaravelMacrosServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $default = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc'];
-        $macros = config('laravelmacros.macros', $default);
-        foreach ($macros as $macro) {
-            if (method_exists($this, $macro)) $this->$macro();
+        $default_macros = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc'];
+        $excluded = config('laravelmacros.exclude_macros', []);
+        foreach ($default_macros as $macro) {
+            if(!in_array($macro,$excluded)){
+                if (method_exists($this, $macro)) $this->$macro();
+            }
         }
+        require_once(__DIR__.'/Helpers/helpers.php');
     }
 }
