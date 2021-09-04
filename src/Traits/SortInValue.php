@@ -1,6 +1,6 @@
 <?php
 
-namespace Zlt\LaravelMacros\Traits;
+namespace Zlt\LaraCalls\Traits;
 
 use Illuminate\Support\Collection;
 

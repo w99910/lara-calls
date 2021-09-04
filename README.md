@@ -2,14 +2,14 @@
 ## Table Of Contents
 - [Installation](#installation)
 - [Available Methods](#available-methods)
-    - [Collection-Macros](#collection-macros)
+    - [Collection Macros](#collection-macros)
       - [onlyValues](#onlyvalues)
       - [pluckMultiple](#pluckmultiple)
       - [sortInValue](#sortinvalue)
       - [sortInValueDesc](#sortinvaluedesc)
       - [groupAndSortBy](#groupandsortby)
       - [groupAndSortByDesc](#groupandsortbydesc)
-    - [Build-Macros](#builder-macros)
+    - [Builder Macros](#builder-macros)
       - [updateOrCreateWhen](#updateorcreatewhen)
     - [Global Helpers](#global-helpers)
       - [Calculate Execution Time](#calculate-execution-time)
@@ -19,16 +19,16 @@
 Install via composer
 
 ```bash
-composer require zlt/laravel-macros
+composer require zlt/lara-calls
 ``` 
 
 Publish config file.
 
 ```bash
-php artisan vendor:publish --provider="Zlt\LaravelMacros\LaravelMacrosServiceProvider"
+php artisan vendor:publish --provider="Zlt\LaraCalls\LaraCallsServiceProvider"
 ```
 
-Config file will contains 
+Config file will contain 
 ```php
 return [
     /*
@@ -48,34 +48,9 @@ return [
 
 > Note: If you've already published config, update your 'macros' in 'laravel-macros' config to use the latest methods.
 
-### Available Methods
+## Available Methods
 
-- #### updateOrCreateWhen
-  This method is like Laravel's `updateOrCreate` method, but it accepts closure whether it should update or not if value
-  is already existed. You can use this method with Eloquent.
-    ```php
-    $food = Food::updateOrCreateWhen(['name' => 'sushi',], [
-        'price' => 100,
-    ]);
-    
-    dd($food->price); //100
-
-    $food = Food::updateOrCreateWhen(['name' => 'sushi'], [
-        'price' => 200
-    ], function ($oldValue, $newValue) {
-        return true;
-    });
-
-    dd($food->price); //200;
-
-    $food = Food::updateOrCreateWhen(['name' => 'sushi'], [
-        'price' => 300
-    ], function ($oldValue, $newValue) {
-        return false;
-    });
-
-    dd($food->price); //200;
-    ```
+### Collection Macros
 - #### OnlyValues
   This method can be used on `Collection` instance. This will return only values and will discard first level array
   keys.
@@ -335,7 +310,37 @@ return [
 - #### GroupAndSortByDesc
   The `groupAndSortByDesc` method is similar to [`groupAndSortBy`](#groupandsortby) but the returned collection is sorted in descending order.
 
-### Global Helpers
+## Builder Macros
+- #### updateOrCreateWhen
+  This method is like Laravel's `updateOrCreate` method, but it accepts closure whether it should update or not if value
+  is already existed. You can use this method with Eloquent.
+    ```php
+    $food = Food::updateOrCreateWhen(['name' => 'sushi',], [
+        'price' => 100,
+    ]);
+    
+    dd($food->price); //100
+
+    $food = Food::updateOrCreateWhen(['name' => 'sushi'], [
+        'price' => 200
+    ], function ($oldValue, $newValue) {
+        return true;
+    });
+
+    dd($food->price); //200;
+
+    $food = Food::updateOrCreateWhen(['name' => 'sushi'], [
+        'price' => 300
+    ], function ($oldValue, $newValue) {
+        return false;
+    });
+
+    dd($food->price); //200;
+    ```
+
+
+
+## Global Helpers
 
 - #### Calculate Execution Time
     Calculate your function execution time in seconds. 
