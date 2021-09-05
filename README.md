@@ -319,19 +319,19 @@ be an instance of `\Illuminate\Support\MessageBag`.
   $collection = collect(['name'=>'John','email'=>'email']);
   
   $collection->validation(['name'=>'string','email'=>'email'])
-             ->onSuccess(function($collection){
-                return $collection;})
-             ->onError(function($messageBag){
-              return $messageBag->toArray();
-             }); // [ "email" => [ "The email must be a valid email address.", ], ]
+               ->onSuccess(function($collection){
+                  return $collection;
+               })->onError(function($messageBag){
+                  return $messageBag->toArray();
+               }); // [ "email" => [ "The email must be a valid email address.", ], ]
   
   $collection->validation(function($collection){
-               return false; //Return type must be 'boolean'.Otherwise, it will always return false.})
-             ->onSuccess(function($collection){
-                return $collection;})
-             ->onError(function(){
-              //Perform some process after failing validation
-             }); // [ "email" => [ "The email must be a valid email address.", ], ]
+                  return false; //Return type must be 'boolean'.Otherwise, it will always return false.})
+               ->onSuccess(function($collection){
+                  return $collection;
+               })->onError(function(){
+                 //Perform some process after failing validation
+               }); // [ "email" => [ "The email must be a valid email address.", ], ]
     ```
 
 ## Builder Macros
