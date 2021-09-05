@@ -28,13 +28,13 @@ class LaraCallsServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $default_macros = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc','validation'];
+        $default_macros = ['onlyValues', 'pluckMultiple', 'updateOrCreateWhen', 'sortInValue', 'sortInValueDesc', 'groupAndSortBy', 'groupAndSortByDesc', 'validation'];
         $excluded = config('lara-calls.exclude_macros', []);
         foreach ($default_macros as $macro) {
-            if(!in_array($macro,$excluded)){
+            if (!in_array($macro, $excluded)) {
                 if (method_exists($this, $macro)) $this->$macro();
             }
         }
-        require_once(__DIR__.'/Helpers/helpers.php');
+        require_once(__DIR__ . '/Helpers/helpers.php');
     }
 }

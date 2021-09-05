@@ -7,9 +7,10 @@ use Illuminate\Support\Collection;
 
 trait Validation
 {
-   public function validation(){
-       Collection::macro('validation', function (array|\Closure $rulesOrClosure) {
-           return new CollectionValidationHandler($this,$rulesOrClosure);
-    });
-   }
+    public function validation()
+    {
+        Collection::macro('validation', function (array|\Closure $rulesOrClosure) {
+            return new CollectionValidationHandler($this, $rulesOrClosure);
+        });
+    }
 }

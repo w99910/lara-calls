@@ -30,7 +30,7 @@ class CollectionValidationHandler
     /**
      * @throws Exception
      */
-    public function onSuccess(Closure $closure = null):self
+    public function onSuccess(Closure $closure = null): self
     {
         if ($this->validator && $this->validator->fails()) {
             return $this;
@@ -41,7 +41,7 @@ class CollectionValidationHandler
         if (!$closure || !is_callable($closure)) {
             throw new \Exception('Closure must be valid and callable');
         }
-        $this->closures->push(['name' => 'onSuccess','closure' => $closure]);
+        $this->closures->push(['name' => 'onSuccess', 'closure' => $closure]);
         return $this;
     }
 
@@ -50,9 +50,9 @@ class CollectionValidationHandler
      */
     public function onError(Closure $closure = null)
     {
-        if (($this->validator && !$this->validator->fails())||(!$this->validator && $this->isSuccess)) {
-            $closure = $this->closures->where('name','onSuccess')->first();
-            if(!$closure)return $this->collection;
+        if (($this->validator && !$this->validator->fails()) || (!$this->validator && $this->isSuccess)) {
+            $closure = $this->closures->where('name', 'onSuccess')->first();
+            if (!$closure) return $this->collection;
             return $closure['closure']($this->collection);
         }
         if (!$closure || !is_callable($closure)) {
