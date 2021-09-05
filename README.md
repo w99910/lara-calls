@@ -40,7 +40,7 @@ return [
     /*
      * You may customize which macros you don't want to use.
      * Only macros provided below will not be registered.
-     * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc','calc_exec_time'.
+     * Available Macros are 'onlyValues','pluckMultiple','updateOrCreateWhen','sortInValue','sortInValueDesc','groupAndSortBy','groupAndSortByDesc','calc_exec_time','validation'.
      */
     'exclude_macros' => [],
 ];
