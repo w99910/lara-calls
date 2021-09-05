@@ -17,6 +17,11 @@
     
 ## Installation
 
+### Requirements
+
+- php : ^7.3 or ^8.0
+- laravel : ^8.0
+
 Install via composer
 
 ```bash
