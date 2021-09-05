@@ -1,4 +1,4 @@
-# Some useful macros for Laravel
+# A bunch of useful methods for Laravel
 ## Table Of Contents
 - [Installation](#installation)
 - [Available Methods](#available-methods)
@@ -9,12 +9,13 @@
       - [sortInValueDesc](#sortinvaluedesc)
       - [groupAndSortBy](#groupandsortby)
       - [groupAndSortByDesc](#groupandsortbydesc)
+      - [validation](#validation)
     - [Builder Macros](#builder-macros)
       - [updateOrCreateWhen](#updateorcreatewhen)
     - [Global Helpers](#global-helpers)
       - [Calculate Execution Time](#calculate-execution-time)
     
-### Installation
+## Installation
 
 Install via composer
 
@@ -228,7 +229,7 @@ return [
    You can also provide a callback to modify the returned collection as you like. 
    In order to sort the returned collection in descending order, you may use [`groupAndSortByDesc`](#groupandsortbydesc) method.
   ```php
-  $collection = collect([
+   $collection = collect([
             [
                 'name' => 'James',
                 'age' => 20,
@@ -243,7 +244,7 @@ return [
             ]
         ]);
 
-  dd($collection->groupAndSortBy('name','age'));
+   dd($collection->groupAndSortBy('name','age'));
   /*
    Illuminate\Support\Collection^ {#4321
              #items: array:2 [
@@ -309,6 +310,29 @@ return [
   ```
 - #### GroupAndSortByDesc
   The `groupAndSortByDesc` method is similar to [`groupAndSortBy`](#groupandsortby) but the returned collection is sorted in descending order.
+- #### Validation
+  Validate the collection and perform subsequent `onSuccess` or `onError` processes. In order to validate,
+you may provide **array of validation rules or closure**. If you provide validation rules, you can provide a parameter inside closure in `onError` and that parameter would
+be an instance of `\Illuminate\Support\MessageBag`.
+  
+    ```php
+  $collection = collect(['name'=>'John','email'=>'email']);
+  
+  $collection->validation(['name'=>'string','email'=>'email'])
+             ->onSuccess(function($collection){
+                return $collection;})
+             ->onError(function($messageBag){
+              return $messageBag->toArray();
+             }); // [ "email" => [ "The email must be a valid email address.", ], ]
+  
+  $collection->validation(function($collection){
+               return false; //Return type must be 'boolean'.Otherwise, it will always return false.})
+             ->onSuccess(function($collection){
+                return $collection;})
+             ->onError(function(){
+              //Perform some process after failing validation
+             }); // [ "email" => [ "The email must be a valid email address.", ], ]
+    ```
 
 ## Builder Macros
 - #### updateOrCreateWhen
