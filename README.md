@@ -78,6 +78,7 @@ return [
   columns and their values that you only want. You can also pluck nested attributes if exists.
 
    ```php
+  // $collection->pluckMultiple(array $keys);
   $collection = collect([
             [
                 'a' => 123,
@@ -116,7 +117,7 @@ return [
                 ],
             ]
         ]);
-    
+   //pluck nested attribute 
   dd($collection->pluckMultiple(['a', 'c.x']));
   /*
   Illuminate\Support\Collection {
@@ -131,6 +132,8 @@ return [
   This method will sort values of certain attribute in ascending order. 
   You can also specify key to sort values of that attribute. To sort in descending order, use [`sortInValueDesc`](#sortinvaluedesc)
     ```php
+  // $collection->sortInValue(string $attributeToSort);
+  // Sometimes you may sort attribute values by key of that attribute values. Then use $collection->sortInValue(string $attributeToSort,string $someKeyOfThatAttribute);
    $collection = collect([
           [
            'a' => [4,5,1,3]
@@ -183,7 +186,7 @@ return [
                     ['b' => 1]]
             ]
         ]);
-    $collection->sortInValue('a','b'); 
+    $collection->sortInValue('a','b'); // sort 'a' values by 'b' key of 'a'
   /*
   Illuminate\Support\Collection {#4348
      all: [
@@ -234,6 +237,7 @@ return [
    You can also provide a callback to modify the returned collection as you like. 
    In order to sort the returned collection in descending order, you may use [`groupAndSortByDesc`](#groupandsortbydesc) method.
   ```php
+  //$collection->groupAndSortBy(string $attributeKeyToGroup,string $attributeKeyToSortAfterGroup,Closure $closureToAdjustSortedCollection);
    $collection = collect([
             [
                 'name' => 'James',
@@ -249,7 +253,7 @@ return [
             ]
         ]);
 
-   dd($collection->groupAndSortBy('name','age'));
+   dd($collection->groupAndSortBy('name','age')); 
   /*
    Illuminate\Support\Collection^ {#4321
              #items: array:2 [
@@ -294,7 +298,7 @@ return [
 
    dd($collection->groupAndSortBy('name','age',function($collection){
        return $collection->where('age','>=',24);
-   }));
+   })); // after group and sorted, adjust the sorted collection
         /*
    Illuminate\Support\Collection^ {#4313
        #items: array:2 [
@@ -321,6 +325,7 @@ you may provide **array of validation rules or closure**. If you provide validat
 be an instance of `\Illuminate\Support\MessageBag`.
   
     ```php
+  //$collection->validation(array|Closure $rulesOrClosure)->onSuccess(Closure $closure)->onError(Closure $closure);
   $collection = collect(['name'=>'John','email'=>'email@mail.com']);
   
   $collection->validation(['name'=>'string','email'=>'email'])
