@@ -13,8 +13,9 @@ trait UpdateOrCreateWhen
                 $updateObject = $checkObject->replicate()->fill($updateAttributes);
                 if ($closure($checkObject, $updateObject)) {
                     $checkObject->update($updateAttributes);
+                    return true;
                 }
-                return $checkObject;
+                return false;
             } else {
                 return $this->create(array_merge($checkAttributes, $updateAttributes));
             }
